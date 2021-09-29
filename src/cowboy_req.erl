@@ -809,13 +809,10 @@ reply(Status, Headers, SendFile = {sendfile, _, Len, _}, Req)
 %% Neither status code must include a response body. (RFC7230 3.3)
 reply(Status, Headers, Body, Req)
 		when Status =:= 204; Status =:= 304 ->
-	0 = iolist_size(Body),
 	do_reply(Status, Headers, Body, Req);
 reply(Status = <<"204",_/bits>>, Headers, Body, Req) ->
-	0 = iolist_size(Body),
 	do_reply(Status, Headers, Body, Req);
 reply(Status = <<"304",_/bits>>, Headers, Body, Req) ->
-	0 = iolist_size(Body),
 	do_reply(Status, Headers, Body, Req);
 reply(Status, Headers, Body, Req)
 		when is_integer(Status); is_binary(Status) ->
